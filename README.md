@@ -36,3 +36,14 @@ In the project directory, you can run:
 #### `npm start`
 
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+## Demo Preview:
+
+### Page
+![](https://github.com/kelvinleong/last-x-price-challenge/blob/master/images/preview1.png)
+
+### Get last 19 average price
+![](https://github.com/kelvinleong/last-x-price-challenge/blob/master/images/preview2.png)
+
+### Error Case
+![](https://github.com/kelvinleong/last-x-price-challenge/blob/master/images/preview3.png)
