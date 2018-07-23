@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 40px;
+  font-family: sans-serif;
+}
+
+input {
+  display: block;
+  margin-bottom: 15px;
+  margin-top: 5px;
+  padding: 10px;
+  border: 1px solid #cfcfcf;
+  font-family: 'Roboto Slab', sans-serif;
+  font-size: 16px;
+  outline: none;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  padding: 12px;
+  background: #33ccff;
+  font-family: 'Roboto Slab', sans-serif;
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  border-bottom: 2px solid #22ccff;
+  
+  &:hover {
+    background-color: #a1a1a1;
+  }
+
+  &:active {
+    background-color: #888;
+  }
+}
+
+form {
+  display: inline-block;
+  margin-right: 50px;
+  vertical-align: top;
+}
+
+.Header {
+  margin-bottom: 30px;
+}
+
+.bounce {
+  margin-top: 10px;
+  animation: bounce 0.5s;
+  transform-origin: center bottom;
+  color: red;
+}
