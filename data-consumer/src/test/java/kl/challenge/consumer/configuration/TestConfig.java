@@ -1,6 +1,5 @@
 package kl.challenge.consumer.configuration;
 
-import kl.challenge.consumer.domain.Price;
 import kl.challenge.consumer.queue.MessagePublisher;
 import kl.challenge.consumer.queue.PricePublisher;
 import org.springframework.beans.factory.annotation.Autowired;
