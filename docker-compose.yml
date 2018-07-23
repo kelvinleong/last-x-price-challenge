@@ -18,10 +18,10 @@ services
       dockerfile: Dockerfile
     image: data-consumer
     ports:
-      - "8090:8090"
+      - "8080:8080"
     restart: always
     volumes:
-      - "./data/consumer:/usr/data/consumer/logs" 
+      - "/data/consumer:/usr/data/consumer/logs" 
 
   producer:
     container_name: data-producer
