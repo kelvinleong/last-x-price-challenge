@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!--
+    <property name="LOG_FILE" value="logs/spring/"/>
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    -->
+
+    <property name="log_home" value="logs" />
+    <property name="FILE_LOG_PATTERN" value="%date %level [%thread] %logger{50} [%file:%line] %msg%n"></property>
+
+    <springProperty scope="context" name="rootLevel" source="consumer.logger.root.level"/>
+    <springProperty scope="context" name="springframeworkLevel" source="consumer.logger.springframework.level"/>
+
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <Pattern>${FILE_LOG_PATTERN}</Pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>TRACE</level>
+        </filter>
+    </appender>
+
+    <appender name="dailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log_home}/data-consumer.log</file>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log_home}/data-consumer-%d{yyyyMMdd}-%i.log.gz</fileNamePattern>
+            <MaxHistory>365</MaxHistory>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>2048MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="errorDailyRollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>./logs/error.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <FileNamePattern>./logs/data-consumer-error.%d{yyyy-MM-dd}.%i.log.gz</FileNamePattern>
+
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+            <!-- or whenever the file size reaches 100MB -->
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+
+        <encoder>
+            <Pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{35} - %msg %n</Pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.eclipse" level="${springframeworkLevel}"/>
+    <logger name="springfox.documentation">
+        <level value="${springframeworkLevel}" />
+        <appender-ref ref="dailyRollingFileAppender"/>
+        <appender-ref ref="errorDailyRollingFileAppender"/>
+        <appender-ref ref="consoleAppender" />
+    </logger>
+    <logger name="org.springframework" additivity="false">
+        <level value="${springframeworkLevel}" />
+        <appender-ref ref="consoleAppender"/>
+        <appender-ref ref="dailyRollingFileAppender"/>
+        <appender-ref ref="errorDailyRollingFileAppender"/>
+    </logger>logger>
+    <root>
+        <level value = "consumer.logger.root.level"/>
+        <appender-ref ref="consoleAppender"/>
+        <appender-ref ref="dailyRollingFileAppender"/>
+        <appender-ref ref="errorDailyRollingFileAppender"/>
+    </root>
+
+</configuration>
